@@ -58,7 +58,7 @@
             </div>
             <div>
                 <ul class="navbar-nav">
-                    {% if user.is_authenticated %}
+                    {% comment %} {% if user.is_authenticated %}
                     <!-- <li class="nav-item ">
                         logged in as {{user.username}} |
                     </li> -->
@@ -67,7 +67,27 @@
                     </span>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">logout</a>
-                    </li>
+                    </li> {% endcomment %}
+                    {% if user.is_authenticated %}
+        {% if user.is_client %}
+            <li class="nav-item">
+                <a href="/client-dashboard" class="nav-item nav-link">Client Dashboard</a>
+            </li>
+        {% endif %}
+
+        {% if user.is_admin %}
+            <li class="nav-item">
+                <a href="/admin-dashboard" class="nav-item nav-link">Admin Dashboard</a>
+            </li>
+        {% endif %}
+        
+        <span class="navbar-text">
+            logged in as <a href="{% url 'user_profile' %}">{{user.first_name}} {{user.last_name}}</a>
+            {% comment %} logged in as {{user.first_name}} {{user.last_name}} | {% endcomment %}
+        </span>
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">logout</a>
+        </li>
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
@@ -89,27 +109,15 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
     crossorigin="anonymous"></script>
 
-    {% comment %} <!-- JavaScript Libraries -->
+    <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-5.min.js"></script> {% endcomment %}
-
-    <!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{% static 'lib/wow/wow.min.js' %}"></script>
-<script src="{% static 'lib/easing/easing.min.js' %}"></script>
-<script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
-<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
-<script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
-<script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
-{% comment %} <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-5.min.js' %}"></script> {% endcomment %}
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
 
     <!-- Link to your CSS file -->
     <link rel="stylesheet" href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}">
