@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'travely_auth.apps.TravelyAuthConfig',
+    'travely_travels.apps.TravelyTravelsConfig',
     'bootstrap5',
     'crispy_forms',
     'crispy_bootstrap5',
@@ -156,7 +157,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Auth_USER_MODEL = 'authentification.CustomUser'
+AUTH_USER_MODEL = 'travely_auth.CustomUser'
 
 LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/home'
