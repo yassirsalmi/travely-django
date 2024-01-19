@@ -12,12 +12,11 @@
                 <a href="{% url 'travely_travels:add_promotion' %}" class="list-group-item list-group-item-action">Add Promotion</a>
                 <a href="{% url 'travely_travels:add_category' %}" class="list-group-item list-group-item-action">Add Category</a>
                 <a href="{% url 'travely_travels:all_travels' %}" class="list-group-item list-group-item-action">All Travels</a>
-                <!-- Add more buttons as needed -->
+                
             </div>
         </div>
 
         <div class="col-md-9">
-            <!-- Main content -->
             <h1>Admin Dashboard</h1>
 
             <h2>All Users</h2>
@@ -27,7 +26,6 @@
                         <th>Username</th>
                         <th>First Name</th>
                         <th>Last Name</th>
-                        <!-- Add more headers for other fields -->
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +34,6 @@
                             <td>{{ user.username }}</td>
                             <td>{{ user.first_name }}</td>
                             <td>{{ user.last_name }}</td>
-                            <!-- Add more cells for other fields -->
                         </tr>
                     {% endfor %}
                 </tbody>

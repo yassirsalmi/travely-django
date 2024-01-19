@@ -2,10 +2,20 @@
 {% block title %} Login {% endblock %}
 {% load crispy_forms_tags %}
 {% block content %} 
-<form method="post">
-{% csrf_token %}{{form|crispy}}
-<p>Don't have a, account? Create One <a href="/sign-up">Here</a>!</p>
-<button type="submit" class="btn btn-success">Login</button>
-</form>
-
+<div class="container mt-5">
+    <h2>Login</h2>
+    <form method="post" class="my-custom-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">Username:</label>
+            <input type="{{ form.username.widget.input_type }}" name="{{ form.username.name }}" class="form-control my-custom-input" id="{{ form.username.id_for_label }}" required>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.password.id_for_label }}">Password:</label>
+            <input type="Password" name="{{ form.password.name }}" class="form-control my-custom-input" id="{{ form.password.id_for_label }}" required>
+        </div>
+        <p>Don't have an account? Create one <a href="/sign-up">here</a>!</p>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
 {% endblock %}

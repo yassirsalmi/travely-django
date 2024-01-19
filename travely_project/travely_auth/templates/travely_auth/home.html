@@ -2,41 +2,28 @@
 {% load static %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<!-- the content of the landing page -->
 
 <div class="container mt-5">
-    <div class="row">
-      <div class="col">
-        <div class="card" style="width: 18rem;height: 24rem;">
-            <img src="{% static 'about/package4.png' %}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
+  <div class="row">
+      {% for travel in travels %}
+          <div class="col">
+              <div class="card" style="width: 18rem;height: 24rem;">
+                  {% if travel.image %}
+                      <img src="{{ travel.image.url }}" class="card-img-top" alt="{{ travel.title }}">
+                  {% else %}
+                      <img src="{% static 'path/to/default_image.jpg' %}" class="card-img-top" alt="{{ travel.title }}">
+                  {% endif %}
+                  <div class="card-body">
+                      <h5 class="card-title">{{ travel.title }}</h5>
+                      <p class="card-text">{{ travel.description }}</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                  </div>
+              </div>
           </div>
-      </div>
-      <div class="col">
-        <div class="card" style="width: 18rem;height: 24rem;">
-            <img src="{% static 'about/package5.png' %}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-      </div>
-      <div class="col">
-        <div class="card" style="width: 18rem;height: 24rem;">
-            <img src="{% static 'about/package6.png' %}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-      </div>
-    </div>
+      {% endfor %}
   </div>
+</div>
+
 
 {% endblock %}
+

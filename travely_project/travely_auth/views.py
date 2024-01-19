@@ -9,10 +9,10 @@ from .models import CustomUser
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 
-# from django.contrib.auth.models import CustomUser
+from django.shortcuts import render
+from django.contrib.auth.decorators import user_passes_test
 
-
-#views form account management
+from travely_travels.models import Travel
 
 
 
@@ -20,18 +20,6 @@ class CustomPasswordChangeView(PasswordChangeView):
     form_class = CustomPasswordChangeForm
     template_name = 'registration/password_change.html'
     success_url = reverse_lazy('user_profile')
-
-
-
-
-
-
-
-
-
-
-
-# redirect views 
 
 
 def home(request):
@@ -61,18 +49,12 @@ def is_admin(user):
 def admin_dashboard(request):
      return render(request, 'admin/admin_dashboard.html')
 
-# def admin_dashboard(request):
-#     # Get all users or perform other admin-related tasks
-#     users = CustomUser.objects.all()
-#     context = {'users': users}
-#     return render(request, 'admin_dashboard.html', context)
+
 
 
 
 ######################
 
-from django.shortcuts import render
-from django.contrib.auth.decorators import user_passes_test
 
 
 @user_passes_test(is_admin, login_url='/login/')
@@ -121,14 +103,7 @@ def sign_up(request):
     return render(request, 'registration/sign_up.html', {"form": form})
 
 
-# def signup(request):
-#     if request.method == 'POST':
-#         form = UserCreationForm(request.POST)
-#         if form.is_valid():
-#             user = form.save()
-#             login(request, user)  # Log the user in after signup
-#             return redirect('home')  # Redirect to the home page or wherever you want
-#     else:
-#         form = UserCreationForm()
 
-#     return render(request, 'registration/signup.html', {'form': form})
+def home(request):
+    travels = Travel.objects.all()
+    return render(request, 'travely_auth/home.html', {'travels': travels})
