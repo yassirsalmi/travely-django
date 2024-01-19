@@ -1,0 +1,49 @@
+{% extends 'travely_auth/base.html' %}
+{% load static %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Sidebar with buttons -->
+            <div class="list-group">
+                <a href="{% url 'travely_travels:add_travel' %}" class="list-group-item list-group-item-action">Add Travel</a>
+                <a href="{% url 'travely_travels:add_promotion' %}" class="list-group-item list-group-item-action">Add Promotion</a>
+                <a href="{% url 'travely_travels:add_category' %}" class="list-group-item list-group-item-action">Add Category</a>
+                <a href="{% url 'travely_travels:all_travels' %}" class="list-group-item list-group-item-action">All Travels</a>
+                <!-- Add more buttons as needed -->
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <!-- Main content -->
+            <h1>Admin Dashboard</h1>
+
+            <h2>All Users</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <!-- Add more headers for other fields -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.first_name }}</td>
+                            <td>{{ user.last_name }}</td>
+                            <!-- Add more cells for other fields -->
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

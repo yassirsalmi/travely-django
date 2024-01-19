@@ -22,6 +22,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('travely_auth.urls')),
+    path('', include('travely_travels.urls')),
     path('', include('django.contrib.auth.urls')),
 
 ]
