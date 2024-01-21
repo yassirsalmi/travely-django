@@ -1,0 +1,32 @@
+{% extends 'travely_auth/base.html' %}
+{% load static %}
+{% block title %}Travel Details{% endblock %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-3">
+                {% if travel.image %}
+                    <img src="{{ travel.image.url }}" class="card-img-top" alt="{{ travel.title }}">
+                {% else %}
+                    <img src="{% static 'path/to/default_image.jpg' %}" class="card-img-top" alt="{{ travel.title }}">
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ travel.title }}</h5>
+                    <p class="card-text"><strong>Start:</strong> {{ travel.starting_point }}</p>
+                    <p class="card-text"><strong>Arrival:</strong> {{ travel.ending_point }}</p>
+                    <p class="card-text">{{ travel.description }}</p>
+                    <p class="card-text"><strong>Price:</strong> {{ travel.price }}</p>
+                    <a href="#" class="btn btn-primary">Reserve Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

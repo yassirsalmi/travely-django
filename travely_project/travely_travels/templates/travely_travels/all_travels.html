@@ -1,0 +1,36 @@
+{% extends 'travely_auth/base.html' %}
+{% block title %}All Travels{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1>All Travels</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Starting Point</th>
+                <th>Ending Point</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for travel in travels %}
+                <tr>
+                    <td>{{ travel.title }}</td>
+                    <td>{{ travel.description }}</td>
+                    <td>{{ travel.category.name }}</td>
+                    <td>{{ travel.starting_point }}</td>
+                    <td>{{ travel.ending_point }}</td>
+                    <td>{{ travel.price }}</td>
+                    <td>
+                        <a href="{% url 'travely_travels:modify_travel' travel.id %}" class="btn btn-primary">Modify</a>
+                        <a href="{% url 'travely_travels:delete_travel' travel.id %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

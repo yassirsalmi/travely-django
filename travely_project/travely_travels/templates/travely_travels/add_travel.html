@@ -1,0 +1,53 @@
+{% extends 'travely_auth/base.html' %}
+
+{% block title %}Add Travel{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Add Travel</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">Title:</label>
+                {{ form.title }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Description:</label>
+                {{ form.description }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.category.id_for_label }}">Category:</label>
+                {{ form.category }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.starting_point.id_for_label }}">Starting Point:</label>
+                {{ form.starting_point }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.ending_point.id_for_label }}">Ending Point:</label>
+                {{ form.ending_point }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.price.id_for_label }}">Price:</label>
+                {{ form.price }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.trip_type.id_for_label }}">Trip Type:</label>
+                {{ form.trip_type }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.departure_date.id_for_label }}">Departure Date:</label>
+                {{ form.departure_date }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.return_date.id_for_label }}">Return Date:</label>
+                {{ form.return_date }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.image.id_for_label }}">Image:</label>
+                {{ form.image }}
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+{% endblock %}
