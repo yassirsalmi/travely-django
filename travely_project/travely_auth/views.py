@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+
+from travely_hotels.models import Hotel
 from .forms import RegisterForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -84,7 +86,6 @@ class UserProfileView(View):
             return redirect('user_profile')
         return render(request, self.template_name, {'form': form})
 
-#sign up and sign in views
 
 def sign_up(request):
     if request.method == 'POST':
@@ -106,4 +107,5 @@ def sign_up(request):
 
 def home(request):
     travels = Travel.objects.all()
-    return render(request, 'travely_auth/home.html', {'travels': travels})
+    hotels = Hotel.objects.all()
+    return render(request, 'travely_auth/home.html', {'travels': travels, 'hotels':hotels})

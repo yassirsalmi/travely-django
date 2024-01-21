@@ -58,16 +58,6 @@
             </div>
             <div>
                 <ul class="navbar-nav">
-                    {% comment %} {% if user.is_authenticated %}
-                    <!-- <li class="nav-item ">
-                        logged in as {{user.username}} |
-                    </li> -->
-                    <span class="navbar-text">
-                        logged in as {{user.first_name}} {{user.first_name}} |
-                    </span>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">logout</a>
-                    </li> {% endcomment %}
                     {% if user.is_authenticated %}
         {% if user.is_client %}
             <li class="nav-item">
