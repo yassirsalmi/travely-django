@@ -1,33 +1,44 @@
-{% extends 'travely_auth/base.html'%}
+{% extends 'travely_auth/base.html' %}
 {% block title %} Sign Up {% endblock %}
 {% load crispy_forms_tags %}
+
+{% block content %} 
+<div class="container mt-5">
+    <h2>Sign Up</h2>
+    <form method="post" class="my-custom-form">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <p>Already have an account? Login <a href="{% url 'login' %}">here</a>!</p>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+{% endblock %}
+{% comment %} {% extends 'travely_auth/base.html' %}
+{% block title %} Sign Up {% endblock %}
+
 {% block content %} 
 <div class="container mt-5">
     <h2>Sign Up</h2>
     <form method="post" class="my-custom-form">
         {% csrf_token %}
         <div class="form-group">
-            <label for="{{ form.username.id_for_label }}">Username:</label>
-            <input type="{{ form.username.widget.input_type }}" name="{{ form.username.name }}" class="form-control my-custom-input" id="{{ form.username.id_for_label }}" required>
+            <label for="id_username">Username:</label>
+            <input type="text" name="username" class="form-control my-custom-input" id="id_username" required>
         </div>
         <div class="form-group">
-            <label for="{{ form.email.id_for_label }}">Email:</label>
-            <input type="{{ form.email.widget.input_type }}" name="{{ form.email.name }}" class="form-control my-custom-input" id="{{ form.email.id_for_label }}" required>
+            <label for="id_email">Email:</label>
+            <input type="email" name="email" class="form-control my-custom-input" id="id_email" required>
         </div>
         <div class="form-group">
-            <label for="{{ form.password1.id_for_label }}">Password:</label>
-            <input type="{{ form.password1.widget.input_type }}" name="{{ form.password1.name }}" class="form-control my-custom-input" id="{{ form.password1.id_for_label }}" required>
+            <label for="id_password1">Password:</label>
+            <input type="password" name="password1" class="form-control my-custom-input" id="id_password1" required>
         </div>
         <div class="form-group">
-            <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
-            <input type="{{ form.password2.widget.input_type }}" name="{{ form.password2.name }}" class="form-control my-custom-input" id="{{ form.password2.id_for_label }}" required>
+            <label for="id_password2">Confirm Password:</label>
+            <input type="password" name="password2" class="form-control my-custom-input" id="id_password2" required>
         </div>
-        <p>Already have an account? Login <a href="/login">here</a>!</p>
+        <p>Already have an account? Login <a href="{% url 'login' %}">here</a>!</p>
         <button type="submit" class="btn btn-primary">Register</button>
     </form>
 </div>
-{% endblock %}
-
-
-
-
+{% endblock %} {% endcomment %}

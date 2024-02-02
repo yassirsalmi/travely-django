@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-
 from travely_hotels.models import Hotel
 from .forms import RegisterForm
 from django.contrib.auth import login, logout, authenticate
@@ -10,13 +9,12 @@ from django.views import View
 from .models import CustomUser
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
-
 from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
-
 from travely_travels.models import Travel
+from django.contrib.auth import get_user_model
 
-
+User = get_user_model()
 
 class CustomPasswordChangeView(PasswordChangeView):
     form_class = CustomPasswordChangeForm
@@ -87,21 +85,22 @@ class UserProfileView(View):
         return render(request, self.template_name, {'form': form})
 
 
+
 def sign_up(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            if user.is_visitor:
-                user.is_visitor = False
-                user.is_client = True
-                user.save()
-            login(request,user)
+            user = form.save(commit=False)
+            user.is_visitor = False
+            user.is_client = True
+            user.save()
+            login(request, user)
             return redirect('/home')
     else:
         form = RegisterForm()
 
     return render(request, 'registration/sign_up.html', {"form": form})
+
 
 
 

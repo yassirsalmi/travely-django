@@ -23,6 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('travely_auth.urls')),
     path('', include('travely_travels.urls')),
+    path('', include('travely_hotels.urls')),
+    path('', include('travely_reservations.urls')),
     path('', include('django.contrib.auth.urls')),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
