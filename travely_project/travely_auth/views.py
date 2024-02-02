@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from travely_hotels.models import Hotel
 from .forms import RegisterForm
 from django.contrib.auth import login, logout, authenticate
@@ -108,3 +108,20 @@ def home(request):
     travels = Travel.objects.all()
     hotels = Hotel.objects.all()
     return render(request, 'travely_auth/home.html', {'travels': travels, 'hotels':hotels})
+
+
+def all_users(request):
+    users = CustomUser.objects.all()
+    return render(request, 'travely_auth/all_users.html', {'users': users})
+
+
+
+def delete_user(request, user_id):
+    User = get_user_model()
+    user = get_object_or_404(CustomUser, pk=user_id)
+
+    # Perform deletion
+    user.delete()
+
+    # Redirect to the page where all users are listed
+    return redirect('all_users')

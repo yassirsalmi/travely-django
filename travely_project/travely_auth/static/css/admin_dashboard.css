@@ -1,0 +1,25 @@
+.image_dash {
+    width: 800px;
+    height: auto;
+}
+
+.card-tale {
+    background-color: #f8f9fa; /* Light gray */
+    border: 1px solid #dee2e6; /* Grayish */
+}
+
+.card-dark-blue {
+    background-color: #343a40; /* Dark gray */
+    border: 1px solid #343a40; /* Same color as background for border */
+    color: #fff; /* White text */
+}
+
+.card-light-blue {
+    background-color: #e2e6ea; /* Light blue */
+    border: 1px solid #adb5bd; /* Light gray */
+}
+
+.card-light-danger {
+    background-color: #f8d7da; /* Light red */
+    border: 1px solid #f5c6cb; /* Light red */
+}

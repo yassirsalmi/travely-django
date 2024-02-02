@@ -29,7 +29,7 @@
   <div class="row">
       {% for travel in travels %}
       <div class="col">
-        <div class="card" style="width: 18rem;height: 24rem;">
+        <div class="card mt-5" style="width: 18rem;height: 24rem;">
             {% if travel.image %}
                 <img src="{{ travel.image.url }}" class="card-img-top" alt="{{ travel.title }}">
             {% else %}

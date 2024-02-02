@@ -10,4 +10,8 @@ urlpatterns = [
     path('user-profile/', views.UserProfileView.as_view(), name='user_profile'),
     path('password_change/', views.CustomPasswordChangeView.as_view(), name='password_change'),
     path('admin-dashboard', views.admin_dashboard, name='admin_dashboard'),
+    path('all_users/', views.all_users, name='all_users'), 
+    path('delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
+
+
 ]
