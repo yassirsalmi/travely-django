@@ -39,35 +39,6 @@ def services_page_view(request):
     return render(request, 'travely_auth/services_page.html')  
 
 
-
-# admin views
-
-def is_admin(user):
-    return user.is_authenticated and user.is_admin
-
-@login_required
-@user_passes_test(is_admin)
-def admin_dashboard(request):
-     return render(request, 'admin/admin_dashboard.html')
-
-
-
-######################
-
-
-
-@user_passes_test(is_admin, login_url='/login/')
-def admin_dashboard(request):
-    users = CustomUser.objects.filter(is_admin=True) | CustomUser.objects.filter(is_client=True)
-    # Exclude the superuser
-    users = users.exclude(is_superuser=True)
-
-    context = {'users': users}
-    return render(request, 'travely_auth/../admin/admin_dashboard.html', context)
-
-########################
-
-
 @method_decorator(login_required, name='dispatch')
 class UserProfileView(View):
     template_name = 'travely_auth/user_profile.html'
@@ -94,7 +65,7 @@ def sign_up(request):
             user.is_client = True
             user.save()
             login(request, user)
-            return redirect('travely_auth/home')
+            return redirect('travely_auth:home')
     else:
         form = RegisterForm()
 
@@ -116,25 +87,19 @@ def all_users(request):
 
 
 def delete_user(request, user_id):
-    User = get_user_model()
+    # User = get_user_model()
     user = get_object_or_404(CustomUser, pk=user_id)
 
-    # Perform deletion
     user.delete()
-
-    # Redirect to the page where all users are listed
     return redirect('travely_auth/all_users')
 
 
 
 def client_dashboard(request):
-    # Assuming the currently logged-in user is accessible via `request.user`
     user = request.user
 
-    # Fetch hotel reservations for the current user
     hotel_reservations = HotelReservation.objects.filter(user=user)
 
-    # Fetch travel reservations for the current user
     travel_reservations = TravelReservation.objects.filter(user=user)
 
     return render(request, 'client/client_dashboard.html', {'hotel_reservations': hotel_reservations, 'travel_reservations': travel_reservations})
@@ -143,7 +108,6 @@ def client_dashboard(request):
 
 ########### search
 
-# views.py
 
 def search_results(request):
     query = request.GET.get('query')
@@ -156,3 +120,67 @@ def search_results(request):
     return render(request, 'travely_auth/search_results.html', {'travels': travels, 'hotels': hotels})
 
 
+
+
+####################### admin views
+from django.db.models import Sum
+def is_admin(user):
+    return user.is_authenticated and user.is_admin
+
+@login_required
+@user_passes_test(is_admin)
+def admin_dashboard(request):
+     return render(request, 'admin/admin_dashboard.html')
+
+
+# @user_passes_test(is_admin, login_url='/login/')
+# def admin_dashboard(request):
+#     users = CustomUser.objects.filter(is_admin=True) | CustomUser.objects.filter(is_client=True)
+#     users = users.exclude(is_superuser=True)
+
+#     context = {'users': users}
+#     return render(request, 'travely_auth/../admin/admin_dashboard.html', context)
+@user_passes_test(is_admin, login_url='/login/')
+def admin_dashboard(request):
+    users = CustomUser.objects.filter(is_admin=True) | CustomUser.objects.filter(is_client=True)
+    users = users.exclude(is_superuser=True)
+
+    user_expenses = get_user_expenses()
+
+    xValues = [user.username for user in users]
+    yValues = [float(user_expenses.get(user.id, 0)) for user in users]  # Convert to float
+    barColors = ["red", "green", "blue", "orange", "brown"]  
+
+    print(xValues)
+    print(yValues)
+
+    context = {
+        'xValues': xValues,
+        'yValues': yValues,
+        'barColors': barColors
+    }
+    print(context['xValues'])
+    return render(request, 'travely_auth/../admin/admin_dashboard.html', context)
+
+
+
+
+def get_user_expenses():
+    hotel_reservations = HotelReservation.objects.values('user').annotate(total_price=Sum('total_price'))
+    travel_reservations = TravelReservation.objects.values('user').annotate(total_price=Sum('total_price'))
+
+    print(hotel_reservations)
+    print(travel_reservations)
+
+    user_expenses = {}
+    for reservation in hotel_reservations:
+        user_expenses[reservation['user']] = user_expenses.get(reservation['user'], 0) + reservation['total_price']
+    for reservation in travel_reservations:
+        user_expenses[reservation['user']] = user_expenses.get(reservation['user'], 0) + reservation['total_price']
+
+    print(user_expenses)
+
+    return user_expenses
+
+
+########################
