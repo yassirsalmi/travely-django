@@ -1,0 +1,44 @@
+{% extends 'travely_auth/base.html' %}
+{% block title %}All Hotels{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <h2>All Hotels</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Stars</th>
+                    <th>Pool</th>
+                    <th>Room Types</th>
+                    <th>price per night</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for hotel in hotels %}
+                    <tr>
+                        <td>{{ hotel.name }}</td>
+                        <td>{{ hotel.location }}</td>
+                        <td>{{ hotel.stars }}</td>
+                        <td>{{ hotel.pool }}</td>
+                        <td>{{ hotel.room_types }}</td>
+                        <td>{{ hotel.price_per_night }}</td>
+                        <td>
+                            {% if hotel.image %}
+                                <img src="{{ hotel.image.url }}" alt="{{ hotel.name }}" width="50" height="50">
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'travely_hotels:modify_hotel' hotel.id %}" class="btn btn-primary">Modify</a>
+                            <a href="{% url 'travely_hotels:delete_hotel' hotel.id %}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

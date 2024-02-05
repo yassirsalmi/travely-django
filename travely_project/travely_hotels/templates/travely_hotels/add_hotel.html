@@ -1,0 +1,85 @@
+{% extends 'travely_auth/base.html' %}
+{% block title %}Add Hotel{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Add Hotel</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td><label for="{{ form.name.id_for_label }}">Name:</label></td>
+                    <td>{{ form.name }}</td>
+                </tr>
+                <tr>
+                    <td><label for="{{ form.location.id_for_label }}">Location:</label></td>
+                    <td>{{ form.location }}</td>
+                </tr>
+                <tr>
+                    <td><label for="{{ form.stars.id_for_label }}">Stars:</label></td>
+                    <td>{{ form.stars }}</td>
+                </tr>
+                <tr>
+                    <td><label for="{{ form.pool.id_for_label }}">Pool:</label></td>
+                    <td>{{ form.pool }}</td>
+                </tr>
+                <tr>
+                    <td><label for="{{ form.room_types.id_for_label }}">Room Types:</label></td>
+                    <td>{{ form.room_types }}</td>
+                </tr>
+                <tr>
+                    <td><label for="{{ form.price_per_night.id_for_label }}">Price per Night:</label></td>
+                    <td>{{ form.price_per_night }}</td>
+                </tr>
+                <tr>
+                    <td><label for="{{ form.image.id_for_label }}">Image:</label></td>
+                    <td>{{ form.image }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+{% endblock %}
+
+
+
+{% comment %} {% extends 'travely_auth/base.html' %}
+{% block title %}Add Hotel{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <h2>Add Hotel</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">Name:</label>
+                {{ form.name }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.location.id_for_label }}">Location:</label>
+                {{ form.location }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.stars.id_for_label }}">Stars:</label>
+                {{ form.stars }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.pool.id_for_label }}">Pool:</label>
+                {{ form.pool }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.room_types.id_for_label }}">Room Types:</label>
+                {{ form.room_types }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.price_per_night.id_for_label }}">Price per Night:</label>
+                {{ form.price_per_night }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.image.id_for_label }}">Image:</label>
+                {{ form.image }}
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+{% endblock %} {% endcomment %}
