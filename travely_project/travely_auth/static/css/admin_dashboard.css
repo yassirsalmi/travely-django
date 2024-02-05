@@ -1,5 +1,9 @@
+*{
+    margin: 0;
+    padding: 0;
+}
 .image_dash {
-    width: 800px;
+    width: 700px;
     height: auto;
 }
 

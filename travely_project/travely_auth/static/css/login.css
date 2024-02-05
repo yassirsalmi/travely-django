@@ -1,0 +1,21 @@
+.back-ground {
+    background-image: url('../images/login_image.PNG');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    height: 500px;
+}
+
+.card-header{
+    font-size: 34px;
+    text-align: center;
+}
+
+.cart-body{
+    justify-content: center;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.8); 
+    border-radius: 10px; 
+    padding: 20px; 
+}

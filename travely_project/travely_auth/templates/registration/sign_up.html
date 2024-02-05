@@ -1,9 +1,40 @@
 {% extends 'travely_auth/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}User Registration{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center mt-5 mb-5">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Register</div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Register
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% comment %} {% extends 'travely_auth/base.html' %}
 {% block title %} Sign Up {% endblock %}
 {% load crispy_forms_tags %}
 
 {% block content %} 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <h2>Sign Up</h2>
     <form method="post" class="my-custom-form">
         {% csrf_token %}
@@ -12,7 +43,7 @@
         <button type="submit" class="btn btn-primary">Register</button>
     </form>
 </div>
-{% endblock %}
+{% endblock %} {% endcomment %}
 {% comment %} {% extends 'travely_auth/base.html' %}
 {% block title %} Sign Up {% endblock %}
 

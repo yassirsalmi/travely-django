@@ -4,8 +4,7 @@
 {% block content %}
 {% comment %} ------------------------------------------------- {% endcomment %}
 
-<div class="container-fluid position-relative p-0">
-
+<div class="container-fluid expended-lg  p-0" style="width: 100%;">
     <div class="container-fluid bg-primary py-5 mb-5 hero-header">
         <div class="container py-5">
             <div class="row justify-content-center py-5">
@@ -13,8 +12,10 @@
                     <h1 class="display-3 text-white mb-3 animated slideInDown">Enjoy Your Vacation With Us</h1>
                     {% comment %} <p class="fs-4 text-white mb-4 animated slideInDown">Tempor erat elitr rebum at clita diam amet diam et eos erat ipsum lorem sit</p> {% endcomment %}
                     <div class="position-relative w-75 mx-auto animated slideInDown">
-                        <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Eg: Thailand">
-                        <button type="button" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top: 7px;">Search</button>
+                        <form action="{% url 'travely_auth:search_results' %}" method="GET" class="position-relative w-75 mx-auto animated slideInDown">
+                            <input name="query" class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Search for travels or hotels">
+                            <button type="submit" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top: 7px;">Search</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -23,70 +24,82 @@
 </div>
 
 {% comment %} ------------------------------------------------- {% endcomment %}
-<h1>travels</h1>
-<div class="container mt-5">    
-    
-  <div class="row">
-      {% for travel in travels %}
-      <div class="col">
-        <div class="card mt-5" style="width: 18rem;height: 24rem;">
-            {% if travel.image %}
-                <img src="{{ travel.image.url }}" class="card-img-top" alt="{{ travel.title }}">
-            {% else %}
-                <img src="{% static 'path/to/default_image.jpg' %}" class="card-img-top" alt="{{ travel.title }}">
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{ travel.title }}</h5>
-                <p class="card-text">
-                    <span class="mr-2"><strong>Start:</strong> {{ travel.starting_point }}</span>
-                    <span><strong>Arrival:</strong> {{ travel.ending_point }}</span>
-                </p>
-                <p class="card-text">{{ travel.description }}</p>
-                <a href="{% url 'travely_travels:travel_details' travel.id %}" class="btn btn-primary">See Details</a>
-            </div>
-        </div>
-    </div>
 
-    
-    
-        
-        
-      {% endfor %}
-  </div>
-  
-</div>
-
-<h1>Hotels</h1>
-
-<div class="container mt-5">    
-    
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Travels</h1>
     <div class="row">
-        {% for hotel in hotels %}
-        <div class="col">
-            <div class="card " style="width: 18rem;height: 24rem;">
-                {% if hotel.image %}
-                    <img src="{{ hotel.image.url }}" class="card-img-top" alt="{{ hotel.name }}">
+        {% for travel in travels %}
+        <div class="col-md-4">
+            <div class="card mb-4 border-3 rounded-3">
+                {% if travel.image %}
+                <img src="{{ travel.image.url }}" class="card-img-top" alt="{{ travel.title }}">
                 {% else %}
-                    <img src="{% static 'path/to/default_image.jpg' %}" class="card-img-top" alt="{{ hotel.name }}">
+                <img src="{% static 'path/to/default_image.jpg' %}" class="card-img-top" alt="{{ travel.title }}">
                 {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title">{{ hotel.name }}</h5>
+                    <h5 class="card-title">{{ travel.title }}</h5>
                     <p class="card-text">
-                        <span class="mr-2"><strong>Location:</strong> {{ hotel.location }}</span>
-                        <span><strong>Stars:</strong> {{ hotel.stars }}</span>
+                        <strong>Start:</strong> {{ travel.starting_point }} <br>
+                        <strong>Arrival:</strong> {{ travel.ending_point }}
                     </p>
-                    <p class="card-text">{{ hotel.description }}</p>
-                    <a href="{% url 'travely_hotels:hotel_details' hotel.id %}" class="btn btn-primary">See Details</a>
+                    <p class="card-text">{{ travel.description }}</p>
+                    <div class="mt-auto text-center">
+                        <a href="{% url 'travely_travels:travel_details' travel.id %}" class="btn btn-dark">See Details</a>
+                    </div>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
-    
-  </div>
+</div>
 
 
-      <!-- Footer Start -->
+
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Hotels</h1>
+    <div class="row">
+        {% for hotel in hotels %}
+        <div class="col-md-4 mb-4">
+            <div class="card mb-4 border-3 rounded-3">
+                {% if hotel.image %}
+                <img src="{{ hotel.image.url }}" class="card-img-top" alt="{{ hotel.name }}">
+                {% else %}
+                <img src="{% static 'path/to/default_image.jpg' %}" class="card-img-top" alt="{{ hotel.name }}">
+                {% endif %}
+                <div class="card-body d-flex flex-column"> <!-- Added d-flex and flex-column classes -->
+                    <h5 class="card-title">{{ hotel.name }}</h5>
+                    <p class="card-text">
+                        <strong>Location:</strong> {{ hotel.location }} <br>
+                        <strong>Stars:</strong> {{ hotel.stars }}
+                    </p>
+                    <p class="card-text">{{ hotel.description }}</p>
+                    <div class="mt-auto text-center"> <!-- Center the button -->
+                        <a href="{% url 'travely_hotels:hotel_details' hotel.id %}" class="btn btn-dark">See Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div style="border: 2px solid #000; padding: 20px; margin: 40px">
+    <h2 style="text-align: center;">Bienvenue chez Travely</h2>
+    <p>
+        Travely est votre compagnon de voyage en ligne, prêt à vous offrir une expérience inoubliable à des prix imbattables. Notre plateforme combine le service de qualité d'une agence traditionnelle avec les tarifs avantageux d'un site en ligne. 
+        Nous traquons les meilleures offres pour vous, que vous souhaitiez explorer Istanbul en Turquie, découvrir les charmes de Paris en France ou vous émerveiller devant les trésors de la Malaisie.
+        En plus de nos tarifs compétitifs sur une large gamme de destinations, nous avons établi des partenariats avantageux avec de nombreux hôtels et compagnies aériennes pour vous garantir des deals exceptionnels. 
+        Que vous préfériez réserver par téléphone en appelant notre centre d'appel au 0600.600.000 / 06.14.54.39.39 / 06.0808.0202 ou 0606.606.607, ou en ligne sur notre site Travely.ma, nous vous offrons la possibilité de réserver, confirmer et payer en ligne ou hors ligne en toute simplicité.
+        Préparez-vous pour un voyage mémorable avec Travely. Bon voyage !
+    </p>
+</div>
+
+
+
+
+
+<!-- Footer Start -->
 <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container py-5">
         <div class="row g-5">

@@ -11,7 +11,7 @@ def add_travel(request):
             travel = form.save(commit=False)
             travel.created_by = request.user
             travel.save()
-            return redirect('admin_dashboard')
+            return redirect('travely_auth:admin_dashboard')
     else:
         form = TravelForm()
 
@@ -55,7 +55,7 @@ def add_promotion(request):
         form = PromotionForm(request.POST)
         if form.is_valid():
             form.save(request=request)
-            return redirect('admin_dashboard')
+            return redirect('travely_auth:admin_dashboard')
     else:
         form = PromotionForm()
 
@@ -67,7 +67,7 @@ def add_category(request):
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save(request=request)
-            return redirect('admin_dashboard')
+            return redirect('travely_auth:admin_dashboard')
     else:
         form = CategoryForm()
 

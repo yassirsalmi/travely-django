@@ -1,31 +1,86 @@
 {% extends 'travely_auth/base.html' %}
 {% load static %}
-{% block title %}Travel Details{% endblock %}
+{% block title %}Search Results{% endblock %}
 {% block content %}
-
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card mb-3">
-                {% if travel.image %}
-                    <img src="{{ travel.image.url }}" class="card-img-top" alt="{{ travel.title }}">
-                {% else %}
-                    <img src="{% static 'path/to/default_image.jpg' %}" class="card-img-top" alt="{{ travel.title }}">
-                {% endif %}
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title text-center"> {{ travel.title }}</h5>
-                    <p class="card-text"><strong>Start:</strong> {{ travel.starting_point }}</p>
-                    <p class="card-text"><strong>Arrival:</strong> {{ travel.ending_point }}</p>
-                    <p class="card-text"><strong>description:</strong> {{ travel.description }}</p>
-                    <p class="card-text"><strong>Price:</strong> {{ travel.price }} DH</p>
-                    <a href="{% url 'travely_reservations:goto_travel_reservation' travel_id=travel.id %}" class="btn btn-dark ">Reserve Now</a>
+<!-- Hero Section -->
+<div class="container-fluid bg-primary py-5 mb-5 hero-header">
+    <div class="container py-5">
+        <div class="row justify-content-center py-5">
+            <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
+                <h1 class="display-3 text-white mb-3 animated slideInDown">Search Results</h1>
+                <div class="position-relative w-75 mx-auto animated slideInDown">
+                    <form action="{% url 'travely_auth:search_results' %}" method="GET" class="position-relative w-75 mx-auto animated slideInDown">
+                        <input name="query" class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Search for travels or hotels">
+                        <button type="submit" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top: 7px;">Search</button>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Search Results Section -->
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Search Results for Travels</h2>
+    <div class="row">
+        {% for travel in travels %}
+        <div class="col-md-4">
+            <div class="card mb-4 border-3 rounded-3">
+                {% if travel.image %}
+                <img src="{{ travel.image.url }}" class="card-img-top" alt="{{ travel.title }}">
+                {% else %}
+                <img src="{% static 'path/to/default_image.jpg' %}" class="card-img-top" alt="{{ travel.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ travel.title }}</h5>
+                    <p class="card-text">
+                        <strong>Start:</strong> {{ travel.starting_point }} <br>
+                        <strong>Arrival:</strong> {{ travel.ending_point }}
+                    </p>
+                    <p class="card-text">{{ travel.description }}</p>
+                    <div class="mt-auto text-center">
+                        <a href="{% url 'travely_travels:travel_details' travel.id %}" class="btn btn-dark">See Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-md-12">
+            <p class="text-center">No travels found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Search Results for Hotels</h2>
+    <div class="row">
+        {% for hotel in hotels %}
+        <div class="col-md-4 mb-4">
+            <div class="card mb-4 border-3 rounded-3">
+                {% if hotel.image %}
+                <img src="{{ hotel.image.url }}" class="card-img-top" alt="{{ hotel.name }}">
+                {% else %}
+                <img src="{% static 'path/to/default_image.jpg' %}" class="card-img-top" alt="{{ hotel.name }}">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ hotel.name }}</h5>
+                    <p class="card-text">
+                        <strong>Location:</strong> {{ hotel.location }} <br>
+                        <strong>Stars:</strong> {{ hotel.stars }}
+                    </p>
+                    <p class="card-text">{{ hotel.description }}</p>
+                    <div class="mt-auto text-center">
+                        <a href="{% url 'travely_hotels:hotel_details' hotel.id %}" class="btn btn-dark">See Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-md-12">
+            <p class="text-center">No hotels found.</p>
+        </div>
+        {% endfor %}
     </div>
 </div>
 
@@ -109,37 +164,3 @@
 <!-- Footer End -->
 
 {% endblock %}
-
-{% comment %} {% extends 'travely_auth/base.html' %}
-{% load static %}
-{% block title %}Travel Details{% endblock %}
-{% block content %}
-
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card mb-3">
-                {% if travel.image %}
-                    <img src="{{ travel.image.url }}" class="card-img-top" alt="{{ travel.title }}">
-                {% else %}
-                    <img src="{% static 'path/to/default_image.jpg' %}" class="card-img-top" alt="{{ travel.title }}">
-                {% endif %}
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{ travel.title }}</h5>
-                    <p class="card-text"><strong>Start:</strong> {{ travel.starting_point }}</p>
-                    <p class="card-text"><strong>Arrival:</strong> {{ travel.ending_point }}</p>
-                    <p class="card-text">{{ travel.description }}</p>
-                    <p class="card-text"><strong>Price:</strong> {{ travel.price }}</p>
-                    <a href="{% url 'travely_reservations:goto_travel_reservation' %}" class="btn btn-primary">Reserve Now</a>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-{% endblock %} {% endcomment %}

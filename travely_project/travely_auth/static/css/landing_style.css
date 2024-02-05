@@ -1,3 +1,9 @@
+.container-fluid-overrided{
+        padding-right: 0;
+        padding-left: 0;
+}
+
+
 /********** Template CSS **********/
 :root {
     --primary: #86B817;
@@ -174,7 +180,7 @@
 .hero-header {
     /* background: linear-gradient(rgba(20, 20, 31, .7), rgba(20, 20, 31, .7)), url(../img/background.png); */
     background: url('../images/background.png');
-    background-position: center center;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;

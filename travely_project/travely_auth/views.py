@@ -1,12 +1,13 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from travely_hotels.models import Hotel
+from travely_reservations.models import HotelReservation, TravelReservation
 from .forms import RegisterForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 from .forms import UserProfileForm, CustomPasswordChangeForm
 from django.views import View
-from .models import CustomUser
+from .models import Client, CustomUser
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.shortcuts import render
@@ -51,8 +52,6 @@ def admin_dashboard(request):
 
 
 
-
-
 ######################
 
 
@@ -64,7 +63,7 @@ def admin_dashboard(request):
     users = users.exclude(is_superuser=True)
 
     context = {'users': users}
-    return render(request, 'admin/admin_dashboard.html', context)
+    return render(request, 'travely_auth/../admin/admin_dashboard.html', context)
 
 ########################
 
@@ -95,7 +94,7 @@ def sign_up(request):
             user.is_client = True
             user.save()
             login(request, user)
-            return redirect('/home')
+            return redirect('travely_auth/home')
     else:
         form = RegisterForm()
 
@@ -124,4 +123,36 @@ def delete_user(request, user_id):
     user.delete()
 
     # Redirect to the page where all users are listed
-    return redirect('all_users')
+    return redirect('travely_auth/all_users')
+
+
+
+def client_dashboard(request):
+    # Assuming the currently logged-in user is accessible via `request.user`
+    user = request.user
+
+    # Fetch hotel reservations for the current user
+    hotel_reservations = HotelReservation.objects.filter(user=user)
+
+    # Fetch travel reservations for the current user
+    travel_reservations = TravelReservation.objects.filter(user=user)
+
+    return render(request, 'client/client_dashboard.html', {'hotel_reservations': hotel_reservations, 'travel_reservations': travel_reservations})
+
+
+
+########### search
+
+# views.py
+
+def search_results(request):
+    query = request.GET.get('query')
+    if query:
+        travels = Travel.objects.filter(title__icontains=query)
+        hotels = Hotel.objects.filter(name__icontains=query)
+    else:
+        travels = Travel.objects.none()
+        hotels = Hotel.objects.none()
+    return render(request, 'travely_auth/search_results.html', {'travels': travels, 'hotels': hotels})
+
+

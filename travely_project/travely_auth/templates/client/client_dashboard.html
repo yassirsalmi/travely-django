@@ -1,0 +1,55 @@
+{% extends 'travely_auth/base.html' %}
+
+{% block title %}Client Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h2 class="text-center">Client Dashboard</h2>
+    <div class="mt-5">
+        <h3>Hotel Reservations</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Hotel</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Price</th> <!-- Add Price column -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for hotel_reservation in hotel_reservations %}
+                <tr>
+                    <td>{{ hotel_reservation.hotel.name }}</td>
+                    <td>{{ hotel_reservation.start_date }}</td>
+                    <td>{{ hotel_reservation.end_date }}</td>
+                    <td>{{ hotel_reservation.price }}</td> <!-- Include Price data -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-5">
+        <h3>Travel Reservations</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Travel</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Price</th> <!-- Add Price column -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for travel_reservation in travel_reservations %}
+                <tr>
+                    <td>{{ travel_reservation.travel.title }}</td>
+                    <td>{{ travel_reservation.start_date }}</td>
+                    <td>{{ travel_reservation.end_date }}</td>
+                    <td>{{ travel_reservation.total_price }}</td> <!-- Include Price data -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

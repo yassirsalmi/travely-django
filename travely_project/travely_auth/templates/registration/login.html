@@ -1,4 +1,45 @@
-{% extends 'travely_auth/base.html'%}
+{% extends 'travely_auth/base.html' %}
+{% block title %} Login {% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        
+                <div class="col-md-6 back-ground">
+                    
+                </div>
+                <div class="card col-md-6">
+                    <div class="card-header">Login</div>
+                    <div class="card-body">
+                        <form method="post" class="my-custom-form">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">Login</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="mt-3">
+                            <p>Don't have an account? Create one <a href="/sign-up">here</a>!</p>
+                        </div>
+                    </div>
+                </div>
+                
+
+            
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+{% comment %} {% extends 'travely_auth/base.html'%}
 {% block title %} Login {% endblock %}
 {% load crispy_forms_tags %}
 {% block content %} 
@@ -18,4 +59,4 @@
         <button type="submit" class="btn btn-primary">Login</button>
     </form>
 </div>
-{% endblock %}
+{% endblock %} {% endcomment %}
