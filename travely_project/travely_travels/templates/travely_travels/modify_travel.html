@@ -1,4 +1,35 @@
 {% extends 'travely_auth/base.html' %}
+{% block title %}Modify Travel{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Modify Travel</h2>
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+              <div class="mb-3">
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                {{ field }}
+              </div>
+            {% endfor %}
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+{% comment %} {% extends 'travely_auth/base.html' %}
 {% block content %}
   <h2>Modify Travel</h2>
   <form method="post" enctype="multipart/form-data">
@@ -6,4 +37,4 @@
     {{ form.as_p }}
     <button type="submit">Save Changes</button>
   </form>
-{% endblock %}
+{% endblock %} {% endcomment %}
