@@ -1,0 +1,71 @@
+{% extends 'travely_auth/base.html' %}
+{% block title %}Travel Reservation{% endblock %}
+{% block content %}
+
+<div class="row ms-5 me-5">
+    <div class="col-4 container mt-5">
+        <h2>User & Travel Information</h2>
+        <table class="table">
+            <tr>
+                <th scope="row">Username:</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Email:</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th scope="row">First Name:</th>
+                <td>{{ user.first_name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Last Name:</th>
+                <td>{{ user.last_name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Travel Title:</th>
+                <td>{{ travel.title }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Starting Point:</th>
+                <td>{{ travel.starting_point }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Ending Point:</th>
+                <td>{{ travel.ending_point }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Description:</th>
+                <td>{{ travel.description }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Price:</th>
+                <td>{{ travel.price }}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="col-4 container mt-5">
+        <h2>Travel Reservation</h2>
+        <form method="post" action="{% url 'travely_reservations:travel_reservation' travel.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table class="table">
+                <tbody>
+                    {% for field in form %}
+                    <tr>
+                        <th scope="row">{{ field.label_tag }}</th>
+                        <td>{{ field }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary">Submit Reservation</button>
+        </form>
+    </div>
+    
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'travely_auth/base.html' %}
+{% block title %}Hotel Reservation{% endblock %}
+{% block content %}
+<div class="row ms-5 me-5">
+    <div class="col-4 container mt-5">
+        <h2>User & Hotel Details:</h2>
+        <table>
+            <tr>
+                <th scope="row">Username:</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Email:</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th scope="row">First Name:</th>
+                <td>{{ user.first_name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Last Name:</th>
+                <td>{{ user.last_name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Hotel Name:</th>
+                <td>{{ hotel.name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Location:</th>
+                <td>{{ hotel.location }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Starts:</th>
+                <td>{{ hotel.stars }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Pool:</th>
+                <td>{% if not hotel.pool %}No{% else %}Yes{% endif %}</td>
+            </tr>
+            <tr>
+                <th scope="row">Pool:</th>
+                <td>{{ hotel.room_types }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Price per Night:</th>
+                <td>{{ hotel.price_per_night }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-4 container mt-5">
+        <h2>Hotel Reservation</h2>
+        <form method="post" action="{% url 'travely_reservations:hotel_reservation' hotel.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% comment %} <div class="form-group">
+                <label for="id_hotel">Hotel:</label>
+                <select name="hotel" id="id_hotel" class="form-control">
+                    {% for hotel in hotels %}
+                        <option value="{{ hotel.id }}">{{ hotel.name }}</option>
+                    {% endfor %}
+                </select>
+            </div> {% endcomment %}
+            <div class="form-group">
+                <label for="id_start_date">Start Date:</label>
+                <input type="date" name="start_date" id="id_start_date" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="id_end_date">End Date:</label>
+                <input type="date" name="end_date" id="id_end_date" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="id_credit_card_number">Credit Card Number:</label>
+                <input type="text" name="credit_card_number" id="id_credit_card_number" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="id_cvv">CVV:</label>
+                <input type="text" name="cvv" id="id_cvv" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="id_expiration_date">Expiration Date:</label>
+                <input type="date" name="expiration_date" id="id_expiration_date" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Reservation</button>
+        </form>
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{% comment %} {% extends 'travely_auth/base.html' %}
+{% block title %}Hotel Reservation{% endblock %}
+{% block content %}
+<!-- Hotel reservation form -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit Reservation</button>
+</form>
+{% endblock %} {% endcomment %}

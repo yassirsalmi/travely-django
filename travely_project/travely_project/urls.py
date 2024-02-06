@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('travely_hotels.urls')),
     path('', include('travely_reservations.urls')),
     path('', include('django.contrib.auth.urls')),
+    path('', include('travely_packages_reservations.urls')),
     path("_debug_/", include("debug_toolbar.urls")),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'travely_travels.apps.TravelyTravelsConfig',
     'travely_hotels.apps.TravelyHotelsConfig',
     'travely_reservations.apps.TravelyReservationsConfig',
+    'travely_packages_reservations.apps.TravelyPackagesReservationsConfig',
     'bootstrap5',
     'crispy_forms',
     'crispy_bootstrap5',
