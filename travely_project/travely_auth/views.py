@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from travely_hotels.models import Hotel
-from travely_reservations.models import HotelReservation, TravelReservation
+
 from .forms import RegisterForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -14,6 +14,9 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
 from travely_travels.models import Travel
 from django.contrib.auth import get_user_model
+from travely_packages_reservations.models import PackageReservation, ReservationProcess
+from travely_reservations.models import HotelReservation, TravelReservation
+
 
 User = get_user_model()
 
@@ -55,7 +58,6 @@ class UserProfileView(View):
         return render(request, self.template_name, {'form': form})
 
 
-
 def sign_up(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -72,8 +74,6 @@ def sign_up(request):
     return render(request, 'registration/sign_up.html', {"form": form})
 
 
-
-
 def home(request):
     travels = Travel.objects.all()
     hotels = Hotel.objects.all()
@@ -85,29 +85,16 @@ def all_users(request):
     return render(request, 'travely_auth/all_users.html', {'users': users})
 
 
-
-def delete_user(request, user_id):
-    # User = get_user_model()
-    user = get_object_or_404(CustomUser, pk=user_id)
-
-    user.delete()
-    return redirect('travely_auth/all_users')
-
-
-
+@login_required
 def client_dashboard(request):
     user = request.user
-
     hotel_reservations = HotelReservation.objects.filter(user=user)
-
     travel_reservations = TravelReservation.objects.filter(user=user)
-
-    return render(request, 'client/client_dashboard.html', {'hotel_reservations': hotel_reservations, 'travel_reservations': travel_reservations})
-
+    package_reservations = ReservationProcess.objects.filter(user=user)
+    return render(request, 'client/client_dashboard.html', {'hotel_reservations': hotel_reservations, 'travel_reservations': travel_reservations, 'package_reservations': package_reservations})
 
 
 ########### search
-
 
 def search_results(request):
     query = request.GET.get('query')
@@ -132,14 +119,13 @@ def is_admin(user):
 def admin_dashboard(request):
      return render(request, 'admin/admin_dashboard.html')
 
+@login_required
+@user_passes_test(is_admin)
+def delete_user(request, user_id):
+    user = get_object_or_404(CustomUser, pk=user_id)
+    user.delete()
+    return redirect('travely_auth/all_users')
 
-# @user_passes_test(is_admin, login_url='/login/')
-# def admin_dashboard(request):
-#     users = CustomUser.objects.filter(is_admin=True) | CustomUser.objects.filter(is_client=True)
-#     users = users.exclude(is_superuser=True)
-
-#     context = {'users': users}
-#     return render(request, 'travely_auth/../admin/admin_dashboard.html', context)
 @user_passes_test(is_admin, login_url='/login/')
 def admin_dashboard(request):
     users = CustomUser.objects.filter(is_admin=True) | CustomUser.objects.filter(is_client=True)
@@ -148,7 +134,7 @@ def admin_dashboard(request):
     user_expenses = get_user_expenses()
 
     xValues = [user.username for user in users]
-    yValues = [float(user_expenses.get(user.id, 0)) for user in users]  # Convert to float
+    yValues = [float(user_expenses.get(user.id, 0)) for user in users] 
     barColors = ["red", "green", "blue", "orange", "brown"]  
 
     print(xValues)
@@ -181,6 +167,17 @@ def get_user_expenses():
     print(user_expenses)
 
     return user_expenses
+
+def all_reservations(request):
+    flight_reservations = TravelReservation.objects.all()
+    hotel_reservations = HotelReservation.objects.all()
+    package_reservations = PackageReservation.objects.all()
+
+    return render(request, 'travely_auth/all_reservations.html', {
+        'flight_reservations': flight_reservations,
+        'hotel_reservations': hotel_reservations,
+        'package_reservations': package_reservations,
+    })
 
 
 ########################

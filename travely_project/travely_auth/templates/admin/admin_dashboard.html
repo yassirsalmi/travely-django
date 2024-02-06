@@ -12,53 +12,29 @@
           <div class="col-md-3">
               <!-- Sidebar with buttons -->
               <div class="list-group">
-                  <p>Travels</p>
-                      <a href="{% url 'travely_travels:add_travel' %}" class="list-group-item list-group-item-action">Add Travel</a>
-                      <a href="{% url 'travely_travels:all_travels' %}" class="list-group-item list-group-item-action">All Travels</a>
-                  <p>Hotels</p>
-                      <a href="{% url 'travely_hotels:add_hotel' %}" class="list-group-item list-group-item-action">Add Hotel</a>
-                      <a href="{% url 'travely_hotels:all_hotels' %}" class="list-group-item list-group-item-action">All Hotels</a>
-                  <p>Packages</p>
-                      <a href="{% url 'travely_packages_reservations:add_package' %}" class="list-group-item list-group-item-action">Add Package</a>
-                      <a href="{% url 'travely_packages_reservations:all_packages_admin' %}" class="list-group-item list-group-item-action">All Packages</a>
-                  <p>Promotion</p>
-                      <a href="{% url 'travely_travels:add_promotion' %}" class="list-group-item list-group-item-action">Add Promotion</a>
-                  <p>Category</p>
-                      <a href="{% url 'travely_travels:add_category' %}" class="list-group-item list-group-item-action">Add Category</a>
-                  <p>Users</p>
-                      <a href="{% url 'travely_auth:all_users' %}" class="list-group-item list-group-item-action">All Users</a> <!-- Add this line -->
-
+                    <p>Travels</p>
+                        <a href="{% url 'travely_travels:add_travel' %}" class="list-group-item list-group-item-action">Add Travel</a>
+                        <a href="{% url 'travely_travels:all_travels' %}" class="list-group-item list-group-item-action">All Travels</a>
+                    <p>Hotels</p>
+                        <a href="{% url 'travely_hotels:add_hotel' %}" class="list-group-item list-group-item-action">Add Hotel</a>
+                        <a href="{% url 'travely_hotels:all_hotels' %}" class="list-group-item list-group-item-action">All Hotels</a>
+                    <p>Packages</p>
+                        <a href="{% url 'travely_packages_reservations:add_package' %}" class="list-group-item list-group-item-action">Add Package</a>
+                        <a href="{% url 'travely_packages_reservations:all_packages_admin' %}" class="list-group-item list-group-item-action">All Packages</a>
+                    <p>Promotion</p>
+                        <a href="{% url 'travely_travels:add_promotion' %}" class="list-group-item list-group-item-action">Add Promotion</a>
+                    <p>Category</p>
+                        <a href="{% url 'travely_travels:add_category' %}" class="list-group-item list-group-item-action">Add Category</a>
+                    <p>Users</p>
+                        <a href="{% url 'travely_auth:all_users' %}" class="list-group-item list-group-item-action">All Users</a> <!-- Add this line -->
+                    <p>Reservations</p>
+                        <a href="{% url 'travely_auth:all_reservations' %}" class="list-group-item list-group-item-action">All Reservations</a>
               </div>
-              <!-- end of side bar -->
           </div>
           <div class="col-md-6 mt-5 ms-3">
               <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-              {% comment %} <script>
-                const xValues = {{ xValues|safe }};
-                const yValues = {{ yValues|safe }};
-                const barColors = {{ barColors|safe }};
-            
-                new Chart("myChart", {
-                    type: "bar",
-                    data: {
-                        labels: xValues,
-                        datasets: [{
-                            backgroundColor: barColors,
-                            data: yValues
-                        }]
-                    },
-                    options: {
-                        legend: { display: false },
-                        title: {
-                            display: true,
-                            text: "Client and their expenses"
-                        }
-                    }
-                });
-            </script> {% endcomment %}
             
           </div>
-          <!-- top section -->
       </div>
   </div>
   

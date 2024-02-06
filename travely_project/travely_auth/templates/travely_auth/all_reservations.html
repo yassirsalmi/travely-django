@@ -1,0 +1,25 @@
+{% extends 'travely_auth/base.html' %}
+{% block title %}All Reservations{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>All Reservations</h1>
+    <h2>Flight Reservations</h2>
+    <ul>
+        {% for reservation in flight_reservations %}
+        <li>{{ reservation }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Hotel Reservations</h2>
+    <ul>
+        {% for reservation in hotel_reservations %}
+        <li>{{ reservation }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Package Reservations</h2>
+    <ul>
+        {% for reservation in package_reservations %}
+        <li>{{ reservation }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

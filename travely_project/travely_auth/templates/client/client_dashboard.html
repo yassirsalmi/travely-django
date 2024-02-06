@@ -13,7 +13,7 @@
                     <th>Hotel</th>
                     <th>Start Date</th>
                     <th>End Date</th>
-                    <th>Price</th> <!-- Add Price column -->
+                    <th>Total Price</th> 
                 </tr>
             </thead>
             <tbody>
@@ -22,7 +22,7 @@
                     <td>{{ hotel_reservation.hotel.name }}</td>
                     <td>{{ hotel_reservation.start_date }}</td>
                     <td>{{ hotel_reservation.end_date }}</td>
-                    <td>{{ hotel_reservation.total_price }}</td> <!-- Include Price data -->
+                    <td>{{ hotel_reservation.total_price }}</td> 
                 </tr>
                 {% endfor %}
             </tbody>
@@ -36,7 +36,7 @@
                     <th>Travel</th>
                     <th>Start Date</th>
                     <th>End Date</th>
-                    <th>Price</th> <!-- Add Price column -->
+                    <th>Total Price</th> 
                 </tr>
             </thead>
             <tbody>
@@ -45,11 +45,59 @@
                     <td>{{ travel_reservation.travel.title }}</td>
                     <td>{{ travel_reservation.start_date }}</td>
                     <td>{{ travel_reservation.end_date }}</td>
-                    <td>{{ travel_reservation.total_price }}</td> <!-- Include Price data -->
+                    <td>{{ travel_reservation.total_price }}</td> 
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+    <div class="mt-5">
+        <h3>Package Reservations</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Package Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Total Price</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation_process in package_reservations %}
+                <tr>
+                    <td>{{ reservation_process.package_reservation.package_name }}</td>
+                    <td>{{ reservation_process.package_reservation.departure_date }}</td>
+                    <td>{{ reservation_process.package_reservation.return_date }}</td>
+                    <td>{{ reservation_process.package_reservation.price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% comment %} <div class="mt-5">
+        <h3>Package Reservations</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Package</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Total Price</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for package_reservation in package_reservations %}
+                <tr>
+                    <td>{{ package_reservation.package.title }}</td>
+                    <td>{{ package_reservation.start_date }}</td>
+                    <td>{{ package_reservation.end_date }}</td>
+                    <td>{{ package_reservation.total_price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> {% endcomment %}
 </div>
 {% endblock %}
+
+
