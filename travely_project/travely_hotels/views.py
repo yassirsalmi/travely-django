@@ -9,7 +9,7 @@ def add_hotel(request):
         if form.is_valid():
             hotel = form.save(commit=False)
             hotel.save()
-            return redirect('admin_dashboard')
+            return redirect('travely_auth:admin_dashboard')
         else:
             print(form.errors)
     else:
