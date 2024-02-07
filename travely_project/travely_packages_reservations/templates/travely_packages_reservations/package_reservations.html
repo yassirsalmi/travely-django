@@ -1,0 +1,76 @@
+{% extends 'travely_auth/base.html' %}
+{% block title %}Package Reservation{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">User & Package Information</h5>
+                    <table class="table">
+                        <tr>
+                            <th scope="row">Username:</th>
+                            <td>{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email:</th>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">First Name:</th>
+                            <td>{{ user.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Last Name:</th>
+                            <td>{{ user.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Start Point:</th>
+                            <td>{{ package.start_point }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">End Point:</th>
+                            <td>{{ package.end_point }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Duration of Stay:</th>
+                            <td>{{ package.duration_of_stay }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Price:</th>
+                            <td>{{ package.price }} mad (DH)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Reservation Form -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Reservation Form</h5>
+                    <form method="post" action="{% url 'travely_packages_reservations:reserve_package' package.id %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_credit_card_number" class="form-label">Credit Card Number:</label>
+                            <input type="text" name="credit_card_number" id="id_credit_card_number" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_cvv" class="form-label">CVV:</label>
+                            <input type="text" name="cvv" id="id_cvv" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_expiration_date" class="form-label">Expiration Date:</label>
+                            <input type="date" name="expiration_date" id="id_expiration_date" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-dark">Submit Reservation</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

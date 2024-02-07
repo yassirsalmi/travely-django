@@ -1,0 +1,77 @@
+{% extends 'travely_auth/base.html' %}
+{% block title %}All Packages{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1>All Packages</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Starting Point</th>
+                <th>Ending Point</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for package in packages %}
+                <tr>
+                    <td>{{ package.package_name }}</td>
+                    <td>{{ package.start_point }}</td>
+                    <td>{{ package.end_point }}</td>
+                    <td>{{ package.price }}</td>
+                    <td>
+                        <a href="{% url 'travely_packages_reservations:modify_package' package.pk %}" class="btn btn-primary">Modify</a>
+                        <a href="{% url 'travely_packages_reservations:delete_package' package.pk %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% comment %} {% extends 'travely_auth/base.html' %}
+{% block title %}All Package Reservations{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1>All Package Reservations</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Start Point</th>
+                <th>End Point</th>
+                <th>Departure Date</th>
+                <th>Return Date</th>
+                <th>Hotel Name</th>
+                <th>Duration of Stay</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reservation in package_reservations %}
+                <tr>
+                    <td>{{ reservation.user }}</td>
+                    <td>{{ reservation.start_point }}</td>
+                    <td>{{ reservation.end_point }}</td>
+                    <td>{{ reservation.departure_date }}</td>
+                    <td>{{ reservation.return_date }}</td>
+                    <td>{{ reservation.hotel_name }}</td>
+                    <td>{{ reservation.duration_of_stay }}</td>
+                    <td>{{ reservation.price }}</td>
+                    <td>
+                        <a href="{% url 'travely_packages_reservations:modify_package' reservation.pk %}" class="btn btn-primary">Modify</a>
+                        <a href="{% url 'travely_packages_reservations:delete_package' reservation.pk %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %} {% endcomment %}
+
+
+
+

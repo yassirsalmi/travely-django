@@ -1,6 +1,85 @@
 {% extends 'travely_auth/base.html' %}
 {% block title %}Travel Reservation{% endblock %}
 {% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">User & Travel Information</h5>
+                    <table class="table">
+                        <tr>
+                            <th scope="row">Username:</th>
+                            <td>{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email:</th>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">First Name:</th>
+                            <td>{{ user.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Last Name:</th>
+                            <td>{{ user.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Travel Title:</th>
+                            <td>{{ travel.title }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Starting Point:</th>
+                            <td>{{ travel.starting_point }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Ending Point:</th>
+                            <td>{{ travel.ending_point }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Description:</th>
+                            <td>{{ travel.description }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Price:</th>
+                            <td>{{ travel.price }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Travel Reservation</h5>
+                    <form method="post" action="{% url 'travely_reservations:travel_reservation' travel.id %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_start_date" class="form-label">Start Date:</label>
+                            <input type="date" name="start_date" id="id_start_date" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_end_date" class="form-label">End Date:</label>
+                            <input type="date" name="end_date" id="id_end_date" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_number_of_tickets" class="form-label">Number of Tickets:</label>
+                            <input type="number" name="number_of_tickets" id="id_number_of_tickets" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-dark">Submit Reservation</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% comment %} {% extends 'travely_auth/base.html' %}
+{% block title %}Travel Reservation{% endblock %}
+{% block content %}
 
 <div class="row ms-5 me-5">
     <div class="col-4 container mt-5">
@@ -68,4 +147,4 @@
 
 
 
-{% endblock %}
+{% endblock %} {% endcomment %}

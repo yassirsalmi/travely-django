@@ -1,0 +1,14 @@
+{% extends 'travely_auth/base.html' %}
+
+{% block title %}Add Package{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Add Package</h1>
+  <form method="post" action="{% url 'travely_packages_reservations:add_package' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+{% endblock %}
